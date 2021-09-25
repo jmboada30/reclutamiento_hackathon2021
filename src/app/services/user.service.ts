@@ -6,6 +6,7 @@ import {
 
 interface User {
   name: string;
+  email: string;
   lastName: string;
   country: string;
   dateBirth: string;
