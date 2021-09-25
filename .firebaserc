@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "reclutamiento-hackathon2021": {
+      "hosting": {
+        "reclutamientoHackathon2021": [
+          "reclutamiento-hackathon2021"
+        ]
+      }
+    }
+  }
+}
