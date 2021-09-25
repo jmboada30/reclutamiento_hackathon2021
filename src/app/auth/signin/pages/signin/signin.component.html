@@ -1,7 +1,7 @@
 <div class="full-width d-flex justify-content-center and align-items-center">
 
-  <app-card>
-    <form class="rounded p-4 p-sm-3">
+  <app-card [title]="'Sign In'">
+    <form class="rounded">
   
       <!-- email -->
       <div class="mb-3">
@@ -22,8 +22,9 @@
       <button type="submit" class="btn btn-primary">Login</button>
 
       <div class="mt-3 text-center">
-        <a href="">Registarme</a>
+        <a routerLink="/auth/register">Registarme</a>
       </div>
     </form>
+
   </app-card>
 </div>
