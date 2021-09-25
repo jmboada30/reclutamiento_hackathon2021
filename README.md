@@ -1,6 +1,5 @@
 # ReclutamientoHackathon2021
 
----
 ## Notas
 
 ### Estructura sugerida de carpetas en Angular
@@ -25,4 +24,3 @@ Ejemplo con Login
     - register.module.ts
     - register.routing.ts
     - ...
-
