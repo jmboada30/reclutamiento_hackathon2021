@@ -23,18 +23,40 @@ export class UserService {
 
   async doCreateUser(user: User) {
     this.spinner.show();
-    const { email, password, password2, role, ...rest } = user;
+    const {
+      aboutUs,
+      nameCompany,
+      name,
+      lastName,
+      dateBirth,
+      userDescription,
+      webPage,
+      repository,
+      ...rest
+    } = user;
 
+    const dataUser = { myBootcamps: [], nameCompany, aboutUs, webPage };
+    const dataCompany = {
+      bootcampsInscription: [],
+      name,
+      lastName,
+      dateBirth,
+      userDescription,
+      repository,
+    };
     try {
-      const resp = await this.authSvc.doCreateUserWithEmailPassword(
-        email,
-        password
+      const { uid } = await this.authSvc.doCreateUserWithEmailPassword(
+        user.email,
+        user.password
       );
 
-      return await this.usersCollection.doc(resp.uid).set({
+      delete rest.password;
+      delete rest.password2;
+
+      await this.usersCollection.doc(uid).set({
+        idUser: uid,
         ...rest,
-        idUser: resp.uid,
-        email,
+        ...(user.role === 'company' ? dataUser : dataCompany),
       });
     } catch (error) {
     } finally {
