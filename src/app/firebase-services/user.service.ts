@@ -17,15 +17,40 @@ export class UserService {
   }
 
   async doCreateUser(user: User) {
-    const { email, password, password2, role, ...rest } = user;
-    const resp = await this.authSvc.doCreateUserWithEmailPassword(email, password);
+    const {
+      aboutUs,
+      nameCompany,
+      name,
+      lastName,
+      dateBirth,
+      userDescription,
+      webPage,
+      repository,
+      ...rest
+    } = user;
 
-   
-    return this.usersCollection.doc(resp.uid).set({
+    const dataUser = { myBootcamps: [], nameCompany, aboutUs, webPage };
+    const dataCompany = {
+      bootcampsInscription: [],
+      name,
+      lastName,
+      dateBirth,
+      userDescription,
+      repository,
+    };
+
+    const { uid } = await this.authSvc.doCreateUserWithEmailPassword(
+      user.email,
+      user.password
+    );
+
+    delete rest.password;
+    delete rest.password2;
+
+    await this.usersCollection.doc(uid).set({
+      idUser: uid,
       ...rest,
-      idUser: resp.uid,
-      email
-      
+      ...(user.role === 'company' ? dataUser : dataCompany),
     });
   }
 
@@ -33,6 +58,27 @@ export class UserService {
     return this.usersCollection.doc(uid).snapshotChanges();
   }
 
-  // inscription boopcamp nuevo metodo
-  // unsubscrite bopcamp
+  /**
+   * @description metodo  ue permite realizar la subscriotion y onSubscrition
+   * @param method
+   * @param idUser
+   * @param idBootcamp
+   * @param bootcamps
+   * @returns void
+   */
+  async subscribeAndOnsubscirbe(
+    method: 'subscribe' | 'unSubscribe',
+    idUser: string,
+    idBootcamp: string,
+    bootcamps: string[]
+  ) {
+    let newBootcamps = bootcamps;
+    if (method === 'subscribe') newBootcamps = [...newBootcamps, idBootcamp];
+    if (method === 'unSubscribe')
+      newBootcamps = newBootcamps.filter((b) => b !== idBootcamp);
+
+    return this.usersCollection.doc(idUser).update({
+      bootcampsInscription: newBootcamps,
+    });
+  }
 }

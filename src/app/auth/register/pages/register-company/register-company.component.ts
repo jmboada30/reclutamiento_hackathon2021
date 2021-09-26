@@ -27,7 +27,7 @@ export class RegisterCompanyComponent implements OnInit {
       webPage: [],
       country: [],
       aboutUs: [],
-      role: ['Company'],
+      role: ['company'],
     },
     {
       validators: [this.validator.samePassword('password', 'password2')],
