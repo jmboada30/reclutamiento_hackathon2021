@@ -8,8 +8,8 @@ const routes: Routes = [
     component: LayoutsComponent,
   },
   {
-    path: 'bootscamps',
-    //! Add module myBootcamp here!
+    path: 'bootscamps_enterprise',
+    loadChildren: () => import('../company/company.module').then(m => m.CompanyModule)
   },
   {
     path: 'bootscamps',

@@ -1,0 +1,18 @@
+<p>navbar</p>
+
+<div class="container mt-5">
+    <div class="card" *ngFor="let bootcamp of bootcamps">
+        <div class="card-body">
+            <!-- <h5 class="card-title">{{ item.tittle}}</h5> -->
+            <div class="description">
+                <p>
+                    {{ bootcamp.description }}
+                </p>
+            </div>
+            <div class="buttons">
+                <a (click)="edit()" class="btn btn-warning">Edit</a>
+                <a (click)="delete()" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
