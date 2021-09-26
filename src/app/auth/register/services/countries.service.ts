@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ResponseCountries } from '../interfaces/country.interface';
 
 export interface CountriesDropdown {
@@ -19,8 +19,7 @@ export class CountriesService {
       .get<ResponseCountries[]>(`https://restcountries.com/v3/all`)
       .pipe(
         map((data) => this.serializedCountries(data)),
-        map((data) => this.sortCountries(data)),
-        tap(console.log)
+        map((data) => this.sortCountries(data))
       );
   }
 
