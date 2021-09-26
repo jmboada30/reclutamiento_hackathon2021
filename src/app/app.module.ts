@@ -7,6 +7,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { CompanyModule } from './company/company.module';
 import { BootcampsComponent } from './users/pages/bootcamps/bootcamps.component';
 import { InscripcionesComponent } from './users/pages/inscripciones/inscripciones.component';
