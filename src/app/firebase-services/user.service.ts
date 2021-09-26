@@ -18,6 +18,7 @@ export interface User {
   aboutUs?: string;
   nameCompany: string;
   webPage?: string;
+  password?: string;
 }
 
 @Injectable({
