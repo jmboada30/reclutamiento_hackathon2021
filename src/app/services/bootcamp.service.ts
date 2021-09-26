@@ -18,12 +18,13 @@ interface Bootcamp {
   requirements: Requirements[];
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class BootcampService {
   private bootcampCollection: AngularFirestoreCollection<any>;
-  private afs: AngularFirestore;
 
-  constructor() {
+  constructor(private afs: AngularFirestore) {
     this.bootcampCollection = this.afs.collection<any>('bootcamps');
   }
 
