@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../../firebase-services/user.service';
+import { SharedService } from '../../../../shared/services/shared.service';
+import {
+  CountriesDropdown,
+  CountriesService,
+} from '../../services/countries.service';
 
 @Component({
   selector: 'app-register',
@@ -24,17 +29,34 @@ export class RegisterDevComponent implements OnInit {
     role: ['Development'],
   });
 
-  constructor(private fb: FormBuilder, private userSvc: UserService) {}
+  countries: CountriesDropdown[] = [];
 
-  ngOnInit(): void {}
+  constructor(
+    private fb: FormBuilder,
+    private userSvc: UserService,
+    private countrySvc: CountriesService,
+    private sharedSvc: SharedService
+  ) {}
+
+  ngOnInit(): void {
+    this.fillCountries();
+  }
+
+  fillCountries() {
+    this.countrySvc
+      .getCountries()
+      .subscribe((countries) => (this.countries = countries));
+  }
 
   async onSubmit() {
     if (this.form.invalid) return;
 
     try {
       await this.userSvc.doCreateUser(this.form.value);
+      this.sharedSvc.successAlert('Has sido registrado exitosamente!');
     } catch (error) {
       console.log('error :>> ', error);
+      this.sharedSvc.errorAlert('Ocurrio un error!');
     } finally {
       this.wasValidated = true;
     }
