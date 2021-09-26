@@ -63,7 +63,7 @@ export class RegisterDevComponent implements OnInit {
     if (this.form.invalid) return;
 
     try {
-      const { email, password, ...user } = this.form.value;
+      const { email, password, password2, ...user } = this.form.value;
       await this.authSvc.doCreateUserWithEmailPassword(email, password);
       await this.userSvc.doCreateUser(user);
       this.sharedSvc.successAlert('Has sido registrado exitosamente!');
