@@ -1,4 +1,11 @@
 .card {
   background-color: #fff;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, .2);
+  border: none;
+}
+
+.card-body {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
