@@ -5,15 +5,26 @@ import { LayoutsComponent } from './layout/layouts.component';
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'company',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
     component: LayoutsComponent,
-  },
-  {
-    path: 'bootscamps_enterprise',
-    loadChildren: () => import('../company/company.module').then(m => m.CompanyModule)
-  },
-  {
-    path: 'bootscamps',
-    //! Add module myInscriptions here!
+    children: [
+      {
+        path: 'company',
+        loadChildren: () =>
+          import('../company/company.module').then((m) => m.CompanyModule),
+      },
+      {
+        path: 'developer',
+        loadChildren: () =>
+          import('../developer/developer.module').then(
+            (m) => m.DeveloperModule
+          ),
+      },
+    ],
   },
 ];
 

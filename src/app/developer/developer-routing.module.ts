@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MyBootcampsComponent } from './pages/my-bootcamps/my-bootcamps.component';
-import { ShowBootcampComponent } from './pages/show-bootcamp/show-bootcamp.component';
+import { BootcampsComponent } from './pages/bootcamps/bootcamps.component';
+import { InscripcionesComponent } from './pages/inscripciones/inscripciones.component';
 
-const COMPANY_ROUTES: Routes = [
+const routes: Routes = [
   {
     path: '',
     redirectTo: 'show_bootcamps',
@@ -14,11 +14,11 @@ const COMPANY_ROUTES: Routes = [
     children: [
       {
         path: 'show_bootcamps',
-        component: ShowBootcampComponent,
+        component: BootcampsComponent,
       },
       {
-        path: 'my_bootcamps',
-        component: MyBootcampsComponent,
+        path: 'my_inscriptions',
+        component: InscripcionesComponent,
       },
       {
         path: '**',
@@ -29,7 +29,7 @@ const COMPANY_ROUTES: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(COMPANY_ROUTES)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CompanyRoutingModule {}
+export class DeveloperRoutingModule {}

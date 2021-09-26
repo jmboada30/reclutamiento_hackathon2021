@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { UserService } from '../../../../services/user.service';
+import { UserService } from '../../../../firebase-services/user.service';
 
 @Component({
   selector: 'app-register-company',
