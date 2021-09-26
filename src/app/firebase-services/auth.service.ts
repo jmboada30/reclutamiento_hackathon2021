@@ -11,11 +11,10 @@ interface AuthServiceCheckAuth {
   providedIn: 'root',
 })
 export class AuthService {
-  private userRef = new UserService(this.afs);
+
 
   constructor(private auth: AngularFireAuth, private afs: AngularFirestore) {
     this.auth = this.auth;
-    this.userRef = this.userRef;
   }
 
   async doCreateUserWithEmailPassword(email: string, password: string) {
@@ -31,8 +30,5 @@ export class AuthService {
   }
   async doCheckAuth({ func }: AuthServiceCheckAuth) {
     return this.auth.onAuthStateChanged(func);
-  }
-  async observeUser(uid: string) {
-    return this.userRef.observeUser(uid);
   }
 }

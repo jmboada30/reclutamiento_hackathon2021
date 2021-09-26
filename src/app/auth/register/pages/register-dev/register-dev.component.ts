@@ -30,7 +30,7 @@ export class RegisterDevComponent implements OnInit {
       dateBirth: [],
       repository: [],
       userDescription: [],
-      role: ['Development'],
+      role: ['development'],
     },
     {
       validators: [this.validator.samePassword('password', 'password2')],
@@ -46,7 +46,7 @@ export class RegisterDevComponent implements OnInit {
     private sharedSvc: SharedService,
     private authSvc: AuthService,
     private validator: ValidatorService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.fillCountries();
@@ -63,9 +63,7 @@ export class RegisterDevComponent implements OnInit {
     if (this.form.invalid) return;
 
     try {
-      const { email, password, password2, ...user } = this.form.value;
-      await this.authSvc.doCreateUserWithEmailPassword(email, password);
-      await this.userSvc.doCreateUser(user);
+      await this.userSvc.doCreateUser(this.form.value);
       this.sharedSvc.successAlert('Has sido registrado exitosamente!');
     } catch (error) {
       console.log('error :>> ', error);
