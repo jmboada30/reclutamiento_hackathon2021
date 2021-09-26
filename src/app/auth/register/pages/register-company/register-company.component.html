@@ -1,5 +1,6 @@
 <div class="full-width d-flex justify-content-center and align-items-center">
-  <app-card [title]="'Registro de Empresas'">
+
+  <app-card [title]="'Registro de Empresas'" class="m-3">
     <form
       class="row g-3 needs-validation"
       [ngClass]="{ 'was-validated': wasValidated }"
@@ -58,10 +59,10 @@
       </div>
 
       <div class="col-md-6">
-        <label class="form-label">Pais</label>
+        <label class="form-label">País</label>
         <select class="form-select" formControlName="country" required>
-          <option selected>Choose...</option>
-          <option>...</option>
+          <option value="" selected>Seleccione un pais</option>
+          <option *ngFor="let country of countries" [value]="country.key">{{country.value}}</option>
         </select>
         <div class="invalid-feedback">Campo requerido.</div>
       </div>
@@ -77,8 +78,9 @@
         <div class="invalid-feedback">Campo requerido.</div>
       </div>
 
-      <div class="col-12">
+      <div class="d-grid gap-2 d-md-block">
         <button type="submit" class="btn btn-primary">Registrar</button>
+        <button type="button" class="btn">Cancelar</button>
       </div>
     </form>
   </app-card>
