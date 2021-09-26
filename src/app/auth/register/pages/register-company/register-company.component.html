@@ -1,33 +1,33 @@
 <div class="full-width d-flex justify-content-center and align-items-center">
-
   <app-card [title]="'Registro de Empresas'" class="m-3">
     <form
       class="row g-3 needs-validation"
-      [ngClass]="{ 'was-validated': wasValidated }"
       [formGroup]="form"
       (ngSubmit)="onSubmit()"
+      autocomplete="off"
     >
       <div class="col-md-6">
         <label class="form-label">Email</label>
-        <input
-          type="email"
-          class="form-control"
-          formControlName="email"
-          required
-        />
-        <div class="invalid-feedback">Campo requerido.</div>
+        <input type="email" class="form-control" formControlName="email" />
+        <span class="form-text text-danger" *ngIf="campoInvalido('email')"
+          >Email invalido</span
+        >
       </div>
 
       <div class="col-md-6">
         <label class="form-label">LinkedIn</label>
-        <input type="text" class="form-control" formControlName="linkedIn" required />
-        <div class="invalid-feedback">Campo requerido.</div>
+        <input type="text" class="form-control" formControlName="linkedIn" />
+        <span class="form-text text-danger" *ngIf="campoInvalido('linkedIn')"
+          >Campo invalido</span
+        >
       </div>
 
       <div class="col-md-12">
         <label class="form-label">Nombre de Empresa</label>
-        <input type="text" class="form-control" formControlName="nameCompany" required />
-        <div class="invalid-feedback">Campo requerido.</div>
+        <input type="text" class="form-control" formControlName="nameCompany" />
+        <span class="form-text text-danger" *ngIf="campoInvalido('nameCompany')"
+          >Campo invalido</span
+        >
       </div>
 
       <div class="col-md-6">
@@ -36,9 +36,10 @@
           type="password"
           class="form-control"
           formControlName="password"
-          required
         />
-        <div class="invalid-feedback">Campo requerido.</div>
+        <span class="form-text text-danger" *ngIf="campoInvalido('password')"
+          >Campo invalido</span
+        >
       </div>
 
       <div class="col-md-6">
@@ -47,35 +48,39 @@
           type="password"
           class="form-control"
           formControlName="password2"
-          required
         />
-        <div class="invalid-feedback">Campo requerido.</div>
+        <span class="form-text text-danger" *ngIf="campoInvalido('password2')"
+          >Las contraseñas deben ser iguales</span
+        >
       </div>
 
       <div class="col-md-6">
         <label class="form-label">Web</label>
-        <input type="text" class="form-control" formControlName="webPage" required />
-        <div class="invalid-feedback">Campo requerido.</div>
+        <input type="text" class="form-control" formControlName="webPage" />
+        <span class="form-text text-danger" *ngIf="campoInvalido('webPage')"
+          >Campo invalido</span
+        >
       </div>
 
       <div class="col-md-6">
         <label class="form-label">País</label>
-        <select class="form-select" formControlName="country" required>
+        <select class="form-select" formControlName="country">
           <option value="" selected>Seleccione un pais</option>
-          <option *ngFor="let country of countries" [value]="country.key">{{country.value}}</option>
+          <option *ngFor="let country of countries" [value]="country.key">
+            {{ country.value }}
+          </option>
         </select>
-        <div class="invalid-feedback">Campo requerido.</div>
+        <span class="form-text text-danger" *ngIf="campoInvalido('country')"
+          >Campo invalido</span
+        >
       </div>
 
       <div class="col-12">
         <label class="form-label">Acerca de nosotros</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="aboutUs"
-          required
-        />
-        <div class="invalid-feedback">Campo requerido.</div>
+        <input type="text" class="form-control" formControlName="aboutUs" />
+        <span class="form-text text-danger" *ngIf="campoInvalido('aboutUs')"
+          >Campo invalido</span
+        >
       </div>
 
       <div class="d-grid gap-2 d-md-block">

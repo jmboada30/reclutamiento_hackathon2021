@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { UserService } from '../../../../firebase-services/user.service';
+import { UserService, User } from '../../../../firebase-services/user.service';
 import { SharedService } from '../../../../shared/services/shared.service';
+import { AuthService } from '../../../../firebase-services/auth.service';
+import { ValidatorService } from '../../../../shared/validators/validator.service';
 import {
   CountriesService,
   CountriesDropdown,
@@ -13,27 +15,35 @@ import {
   styleUrls: ['./register-company.component.scss'],
 })
 export class RegisterCompanyComponent implements OnInit {
-  wasValidated = false;
-
-  form: FormGroup = this.fb.group({
-    email: [, Validators.required],
-    linkedIn: [, Validators.required],
-    nameCompany: [, Validators.required],
-    password: [, Validators.required],
-    password2: [, Validators.required],
-    webPage: [],
-    country: [],
-    aboutUs: [],
-    role: ['Company'],
-  });
+  form: FormGroup = this.fb.group(
+    {
+      email: [
+        ,
+        [Validators.required, Validators.pattern(this.validator.emailPattern)],
+      ],
+      linkedIn: [, Validators.required],
+      nameCompany: [, Validators.required],
+      password: [, Validators.required],
+      password2: [, Validators.required],
+      webPage: [],
+      country: [],
+      aboutUs: [],
+      role: ['Company'],
+    },
+    {
+      validators: [this.validator.samePassword('password', 'password2')],
+    }
+  );
 
   countries: CountriesDropdown[] = [];
 
   constructor(
     private fb: FormBuilder,
     private userSvc: UserService,
+    private authSvc: AuthService,
     private countrySvc: CountriesService,
-    private sharedSvc: SharedService
+    private sharedSvc: SharedService,
+    private validator: ValidatorService
   ) {}
 
   ngOnInit(): void {
@@ -47,16 +57,21 @@ export class RegisterCompanyComponent implements OnInit {
   }
 
   async onSubmit() {
+    this.form.markAllAsTouched();
     if (this.form.invalid) return;
 
     try {
-      await this.userSvc.doCreateUser(this.form.value);
+      const { email, password, password2, ...user } = this.form.value;
+      await this.authSvc.doCreateUserWithEmailPassword(email, password);
+      await this.userSvc.doCreateUser(user);
       this.sharedSvc.successAlert('Empresa Creada!');
     } catch (error) {
       console.log('error :>> ', error);
-      this.sharedSvc.errorAlert('Ocurrio un error!');
-    } finally {
-      this.wasValidated = true;
+      this.sharedSvc.errorAlert('Ocurrio un error!', error.message);
     }
+  }
+
+  campoInvalido(campo: string) {
+    return this.form.get(campo)?.invalid && this.form.get(campo)?.touched;
   }
 }

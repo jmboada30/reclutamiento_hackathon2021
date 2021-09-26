@@ -23,7 +23,7 @@ export class SharedService {
     this.toast.fire({ icon: 'success', title });
   }
 
-  errorAlert(title: string) {
-    this.toast.fire({ icon: 'error', title });
+  errorAlert(title: string, text: string) {
+    this.toast.fire({ icon: 'error', title, text });
   }
 }
