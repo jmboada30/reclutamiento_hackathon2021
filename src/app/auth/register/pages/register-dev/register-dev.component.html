@@ -1,0 +1,97 @@
+<div class="full-width d-flex justify-content-center and align-items-center">
+  <app-card [title]="'Registro de Desarrolladores'">
+    <form
+      class="row g-3 needs-validation"
+      [ngClass]="{ 'was-validated': wasValidated }"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="col-md-6">
+        <label class="form-label">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          required
+        />
+        <div class="invalid-feedback">Campo requerido.</div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">LinkedIn</label>
+        <input type="text" class="form-control" formControlName="linkedIn" required />
+        <div class="invalid-feedback">Campo requerido.</div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Nombres</label>
+        <input type="text" class="form-control" formControlName="name" required />
+        <div class="invalid-feedback">Campo requerido.</div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Apellidos</label>
+        <input type="text" class="form-control" formControlName="lastName" required />
+        <div class="invalid-feedback">Campo requerido.</div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Contraseña</label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          required
+        />
+        <div class="invalid-feedback">Campo requerido.</div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Repetir Contraseña</label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password2"
+          required
+        />
+        <div class="invalid-feedback">Campo requerido.</div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Repositorio</label>
+        <input type="text" class="form-control" formControlName="repository" required />
+        <div class="invalid-feedback">Campo requerido.</div>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Pais</label>
+        <select class="form-select" formControlName="country" required>
+          <option selected>Choose...</option>
+          <option>...</option>
+        </select>
+        <div class="invalid-feedback">Campo requerido.</div>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Fecha Nacimiento</label>
+        <input type="date" class="form-control" formControlName="dateBirth" required />
+        <div class="invalid-feedback">Campo requerido.</div>
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Breve descripción</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="userDescription"
+          required
+        />
+        <div class="invalid-feedback">Campo requerido.</div>
+      </div>
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Registrar</button>
+      </div>
+    </form>
+  </app-card>
+</div>

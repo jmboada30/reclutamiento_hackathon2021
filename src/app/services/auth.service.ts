@@ -2,16 +2,18 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 import { UserService } from './user.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 interface AuthServiceCheckAuth {
   func: (user: any) => void;
 }
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
-  private auth: AngularFireAuth;
-  private userRef = new UserService();
+  private userRef = new UserService(this.afs);
 
-  constructor() {
+  constructor(private auth: AngularFireAuth, private afs: AngularFirestore) {
     this.auth = this.auth;
     this.userRef = this.userRef;
   }
