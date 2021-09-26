@@ -7,9 +7,16 @@ import { AngularFireModule } from '@angular/fire';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
+import { BootcampsComponent } from './users/pages/bootcamps/bootcamps.component';
+import { InscripcionesComponent } from './users/pages/inscripciones/inscripciones.component';
 
 @NgModule({
-  declarations: [AppComponent],
+
+  declarations: [
+    AppComponent,
+    BootcampsComponent,
+    InscripcionesComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
