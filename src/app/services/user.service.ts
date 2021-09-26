@@ -4,9 +4,9 @@ import {
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
 
-interface User {
-  name: string;
+export interface User {
   email: string;
+  name: string;
   lastName: string;
   country: string;
   dateBirth: string;
@@ -19,12 +19,14 @@ interface User {
   nameCompany: string;
   webPage?: string;
 }
-@Injectable()
+
+@Injectable({
+  providedIn: 'root',
+})
 export class UserService {
   private usersCollection: AngularFirestoreCollection<any>;
-  private afs: AngularFirestore;
-  
-  constructor() {
+
+  constructor(private afs: AngularFirestore) {
     this.usersCollection = this.afs.collection<any>('users');
   }
 
