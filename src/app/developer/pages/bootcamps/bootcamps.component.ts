@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BootcampService } from 'src/app/firebase-services/bootcamp.service';
 import { Bootcamp } from 'src/app/shared/bootcamp.interface';
-import { ServiceService } from '../../service.service';
 
 @Component({
   selector: 'app-bootcamps',
@@ -10,14 +9,21 @@ import { ServiceService } from '../../service.service';
 })
 export class BootcampsComponent implements OnInit {
 
-  bootcamps: any;
+  bootcamps$ = this.bootcampSVC.bootcamp;
   constructor(private bootcampSVC: BootcampService) { 
   }
 
   ngOnInit(): void {
+    // console.log(this.bootcamps$.subscribe( d =>{
+    //   console.log(d);
+    // }));
+    
 
-    this.bootcamps = this.bootcampSVC.onDeleteBootcamp
-    console.log(this.bootcamps);
+    // this.bootcamps = this.bootcampSVC.onGetBootcamps
+    // console.log( "holalaalalal" + this.bootcamps);
+    // console.log("hola");
   }
-
+  reister(){
+    
+  }
 }

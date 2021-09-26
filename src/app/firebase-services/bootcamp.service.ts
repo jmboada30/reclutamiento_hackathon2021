@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-} from '@angular/fire/firestore';
-
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { map, finalize } from 'rxjs/operators';
 type Requirements = {
   title: string;
   description: string;
@@ -15,6 +13,7 @@ interface Bootcamp {
   duration: string;
   idCompany: string;
   idDoc?: string;
+  empresa: string;
   requirements: Requirements[];
 }
 
@@ -22,19 +21,16 @@ interface Bootcamp {
   providedIn: 'root',
 })
 export class BootcampService {
-  private bootcampCollection: AngularFirestoreCollection<any>;
-
+  private bootcampCollection: AngularFirestoreCollection<Bootcamp>;
+  public bootcamp: Observable<Bootcamp[]>;
   constructor(private afs: AngularFirestore) {
-    this.bootcampCollection = this.afs.collection<any>('bootcamps');
+    this.bootcampCollection = afs.collection<any>('bootcamps');
+      this.getbootcamps();
   }
 
-  onGetBootcamps() {
-    try {
-      const result = this.bootcampCollection.get({ source: 'server' });
-      return result;
-    } catch (error) {
-      console.error(error);
-    }
+  getbootcamps(): void{
+    this.bootcamp = this.bootcampCollection.snapshotChanges().pipe( 
+      map(actions => actions.map(a => a.payload.doc.data() as Bootcamp)));
   }
 
   async onCreateBootcamp(bootcamp: Bootcamp): Promise<void> {
