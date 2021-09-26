@@ -2,20 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
-type Requirements = {
-  title: string;
-  description: string;
-};
-interface Bootcamp {
-  title: string;
-  totalMembers: number;
-  description: string;
-  duration: string;
-  idCompany: string;
-  idDoc?: string;
-  empresa: string;
-  requirements: Requirements[];
-}
+import { Bootcamp } from './interfaces/bootcamp.interface';
 
 @Injectable({
   providedIn: 'root',

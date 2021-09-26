@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../../firebase-services/user.service';
 import { SharedService } from '../../../../shared/services/shared.service';
-import { AuthService } from '../../../../firebase-services/auth.service';
 import { ValidatorService } from '../../../../shared/validators/validator.service';
 import {
   CountriesDropdown,
@@ -30,7 +29,7 @@ export class RegisterDevComponent implements OnInit {
       dateBirth: [],
       repository: [],
       userDescription: [],
-      role: ['Development'],
+      role: ['development'],
     },
     {
       validators: [this.validator.samePassword('password', 'password2')],
@@ -44,7 +43,6 @@ export class RegisterDevComponent implements OnInit {
     private userSvc: UserService,
     private countrySvc: CountriesService,
     private sharedSvc: SharedService,
-    private authSvc: AuthService,
     private validator: ValidatorService
   ) {}
 
@@ -63,9 +61,7 @@ export class RegisterDevComponent implements OnInit {
     if (this.form.invalid) return;
 
     try {
-      const { email, password, password2, ...user } = this.form.value;
-      await this.authSvc.doCreateUserWithEmailPassword(email, password);
-      await this.userSvc.doCreateUser(user);
+      await this.userSvc.doCreateUser(this.form.value);
       this.sharedSvc.successAlert('Has sido registrado exitosamente!');
     } catch (error) {
       console.log('error :>> ', error);

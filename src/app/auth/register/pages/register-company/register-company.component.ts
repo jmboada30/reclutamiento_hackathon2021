@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { UserService, User } from '../../../../firebase-services/user.service';
+import { UserService } from '../../../../firebase-services/user.service';
 import { SharedService } from '../../../../shared/services/shared.service';
-import { AuthService } from '../../../../firebase-services/auth.service';
 import { ValidatorService } from '../../../../shared/validators/validator.service';
 import {
   CountriesService,
@@ -40,11 +39,11 @@ export class RegisterCompanyComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userSvc: UserService,
-    private authSvc: AuthService,
+
     private countrySvc: CountriesService,
     private sharedSvc: SharedService,
     private validator: ValidatorService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.fillCountries();
@@ -61,9 +60,7 @@ export class RegisterCompanyComponent implements OnInit {
     if (this.form.invalid) return;
 
     try {
-      const { email, password, password2, ...user } = this.form.value;
-      await this.authSvc.doCreateUserWithEmailPassword(email, password);
-      await this.userSvc.doCreateUser(user);
+      await this.userSvc.doCreateUser(this.form.value);
       this.sharedSvc.successAlert('Empresa Creada!');
     } catch (error) {
       console.log('error :>> ', error);

@@ -3,23 +3,9 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
-
-export interface User {
-  email: string;
-  name: string;
-  lastName: string;
-  country: string;
-  dateBirth: string;
-  linkedIn: string;
-  repository: string;
-  userDescription: string;
-  role: string;
-  idDoc?: string;
-  aboutUs?: string;
-  nameCompany: string;
-  webPage?: string;
-  password?: string;
-}
+import { AuthService } from './auth.service';
+import { User } from './interfaces/user.interfaces';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root',
@@ -27,18 +13,39 @@ export interface User {
 export class UserService {
   private usersCollection: AngularFirestoreCollection<any>;
 
-  constructor(private afs: AngularFirestore) {
+  constructor(
+    private afs: AngularFirestore,
+    private authSvc: AuthService,
+    private spinner: NgxSpinnerService
+  ) {
     this.usersCollection = this.afs.collection<any>('users');
   }
 
   async doCreateUser(user: User) {
-    const idDoc = this.afs.createId();
-    return this.usersCollection.doc(idDoc).set({
-      ...user,
-    });
+    this.spinner.show();
+    const { email, password, password2, role, ...rest } = user;
+
+    try {
+      const resp = await this.authSvc.doCreateUserWithEmailPassword(
+        email,
+        password
+      );
+
+      return await this.usersCollection.doc(resp.uid).set({
+        ...rest,
+        idUser: resp.uid,
+        email,
+      });
+    } catch (error) {
+    } finally {
+      this.spinner.hide();
+    }
   }
 
   async observeUser(uid: string) {
     return this.usersCollection.doc(uid).snapshotChanges();
   }
+
+  // inscription boopcamp nuevo metodo
+  // unsubscrite bopcamp
 }
