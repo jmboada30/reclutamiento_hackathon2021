@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../../firebase-services/user.service';
 import { SharedService } from '../../../../shared/services/shared.service';
-import { AuthService } from '../../../../firebase-services/auth.service';
 import { ValidatorService } from '../../../../shared/validators/validator.service';
 import {
   CountriesDropdown,
@@ -44,9 +43,8 @@ export class RegisterDevComponent implements OnInit {
     private userSvc: UserService,
     private countrySvc: CountriesService,
     private sharedSvc: SharedService,
-    private authSvc: AuthService,
     private validator: ValidatorService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.fillCountries();
