@@ -46,6 +46,27 @@ export class UserService {
     return this.usersCollection.doc(uid).snapshotChanges();
   }
 
-  // inscription boopcamp nuevo metodo
-  // unsubscrite bopcamp
+  /**
+   * @description metodo  ue permite realizar la subscriotion y onSubscrition
+   * @param method
+   * @param idUser
+   * @param idBootcamp
+   * @param bootcamps
+   * @returns void
+   */
+  async subscribeAndOnsubscirbe(
+    method: 'subscribe' | 'unSubscribe',
+    idUser: string,
+    idBootcamp: string,
+    bootcamps: string[]
+  ) {
+    let newBootcamps = bootcamps;
+    if (method === 'subscribe') newBootcamps = [...newBootcamps, idBootcamp];
+    if (method === 'unSubscribe')
+      newBootcamps = newBootcamps.filter((b) => b !== idBootcamp);
+
+    return this.usersCollection.doc(idUser).update({
+      bootcampsInscription: newBootcamps,
+    });
+  }
 }
