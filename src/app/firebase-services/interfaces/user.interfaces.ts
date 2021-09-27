@@ -8,8 +8,8 @@ export interface User {
     linkedIn: string;
     repository: string;
     userDescription: string;
-    role: string;
-    idDoc?: string;
+    role: 'company' | 'development';
+    idUser?: string;
     aboutUs?: string;
     nameCompany: string;
     webPage?: string;
