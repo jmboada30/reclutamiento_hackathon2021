@@ -8,7 +8,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('./layouts/layouts.module').then((m) => m.LayoutsModule),
     canActivate: [LoggedGuard],
-    canLoad: [LoggedGuard],
   },
   {
     path: 'auth',

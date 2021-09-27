@@ -6,12 +6,15 @@ import {
 import { AuthService } from './auth.service';
 import { User } from './interfaces/user.interfaces';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { shareReplay, tap } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private usersCollection: AngularFirestoreCollection<any>;
+  private _user = new BehaviorSubject<User>(null);
 
   constructor(
     private afs: AngularFirestore,
@@ -90,5 +93,16 @@ export class UserService {
     return this.usersCollection.doc(idUser).update({
       bootcampsInscription: newBootcamps,
     });
+  }
+
+  getUserById(idUser: string) {
+    return this.afs
+      .collection<User>('users', (ref) => ref.where('idUser', '==', idUser))
+      .snapshotChanges()
+      .pipe(tap((resp) => this._user.next(resp[0].payload.doc.data())));
+  }
+
+  getUserObs() {
+    return this._user.asObservable();
   }
 }

@@ -1,41 +1,35 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router, CanActivate, CanLoad } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import { Observable, Subscription } from 'rxjs';
+import { Observable, pipe } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
-import * as firebase from '@angular/fire';
+import { UserService } from '../firebase-services/user.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LoggedGuard implements CanActivate, CanLoad {
-  constructor(private router: Router, private authSvc: AngularFireAuth) {}
+export class LoggedGuard implements CanActivate {
+  constructor(
+    private router: Router,
+    private authSvc: AngularFireAuth,
+    private userSvc: UserService
+  ) {}
 
   canActivate(): Observable<boolean> | boolean {
-    return this.authSvc.user.pipe(
-      map((user) => {
-        console.log('canActivate :>> ', user);
-        if (!user || !user?.emailVerified) {
-          this.router.navigateByUrl('/auth/signin');
-          return false;
-        } else {
-          return true;
-        }
-      })
-    );
+    return this.checkUser();
   }
 
-  canLoad(): Observable<boolean> | boolean {
+  checkUser() {
     return this.authSvc.user.pipe(
       map((user) => {
-        console.log('canLoad :>> ', user);
+        console.log('user :>> ', user);
         if (!user || !user?.emailVerified) {
-          this.router.navigateByUrl('/auth/signin');
+          this.router.navigateByUrl('auth/signin');
           return false;
-        } else {
-          return true;
         }
+        this.userSvc.getUserById(user.uid).subscribe();
+        return true;
       })
     );
   }

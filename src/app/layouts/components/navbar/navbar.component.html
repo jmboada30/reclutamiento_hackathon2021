@@ -1,28 +1,68 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-bs-toggle="collapse"
-    data-bs-target="#opciones"
-    aria-controls="#opciones"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="opciones">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="link" [routerLink]="['company']">Bootcamps</a>
-      </li>
-      <li class="nav-item">
-        <a class="link" [routerLink]="['company/my_bootcamps']"
-          >Mis Bootcamps</a
-        >
-      </li>
-    </ul>
-  </div>
-  <a href="#" class="navbar-brand">
-    <button class="btn btn-lg">Crear Bootcamp</button>
-  </a>
-</nav>
+<ng-container *ngIf="role === 'company'">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#opciones"
+      aria-controls="#opciones"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="opciones">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="link" routerLink="home">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="link" routerLink="company/show_bootcamps">Bootcamps</a>
+        </li>
+        <li class="nav-item">
+          <a class="link" routerLink="company/my_bootcamps">Mis Bootcamps</a>
+        </li>
+        <li class="nav-item">
+          <a class="link" routerLink="auth/signin" (click)="onExitClick()">Salir</a>
+        </li>
+      </ul>
+    </div>
+
+    <a class="navbar-brand" routerLink="company/new_bootcamp">
+      <button class="btn btn-lg">Crear Bootcamp</button>
+    </a>
+  </nav>
+</ng-container>
+
+<ng-container *ngIf="role === 'developer'">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#opciones"
+      aria-controls="#opciones"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="opciones">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="link" routerLink="home">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="link" routerLink="developer/show_bootcamps">Bootcamps</a>
+        </li>
+        <li class="nav-item">
+          <a class="link" routerLink="auth/signin" (click)="onExitClick()">Salir</a>
+        </li>
+      </ul>
+    </div>
+
+    <a class="link" routerLink="developer/my_inscriptions">
+      <button class="btn btn-lg">Mis Incripciones</button>
+    </a>
+  </nav>
+</ng-container>

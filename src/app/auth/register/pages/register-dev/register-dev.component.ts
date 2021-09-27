@@ -29,7 +29,7 @@ export class RegisterDevComponent implements OnInit {
       dateBirth: [],
       repository: [],
       userDescription: [],
-      role: ['development'],
+      role: ['developer'],
     },
     {
       validators: [this.validator.samePassword('password', 'password2')],

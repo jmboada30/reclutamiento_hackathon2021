@@ -27,6 +27,10 @@ const routes: Routes = [
         path: 'checkmail',
         component: CheckMailComponent,
       },
+      {
+        path: '**',
+        redirectTo: 'signin',
+      },
     ],
   },
 ];

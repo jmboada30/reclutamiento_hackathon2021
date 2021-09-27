@@ -30,7 +30,6 @@ export class SigninComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    console.log('this.form.value :>> ', this.form.value);
     if (this.form.invalid) return;
     const { email, password } = this.form.value;
     this.authSvc.doSignInWithEmailAndPassword(email, password).then(
@@ -38,8 +37,7 @@ export class SigninComponent implements OnInit {
         if (resp.user.emailVerified === false) {
           this.router.navigateByUrl('/auth/checkmail');
         } else {
-          console.log('entro onSubmit');
-          this.router.navigateByUrl('/app');
+          this.router.navigateByUrl('/');
         }
       },
       (error) => this.sharedSvc.errorAlert('Ups... error!', error.message)
