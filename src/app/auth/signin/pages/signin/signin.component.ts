@@ -16,7 +16,7 @@ export class SigninComponent implements OnInit {
       ,
       [Validators.required, Validators.pattern(this.validator.emailPattern)],
     ],
-    password: [, Validators.required],
+    password: [, [Validators.required, Validators.minLength(6)]],
   });
 
   constructor(
@@ -45,6 +45,6 @@ export class SigninComponent implements OnInit {
   }
 
   campoInvalido(campo: string) {
-    return this.form.get(campo)?.invalid && this.form.get(campo)?.touched;
+    return this.validator.campoInvalido(this.form, campo);
   }
 }

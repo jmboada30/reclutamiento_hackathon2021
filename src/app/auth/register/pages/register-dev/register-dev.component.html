@@ -1,5 +1,6 @@
 <div class="full-width d-flex justify-content-center and align-items-center">
   <app-card [title]="'Registro de Desarrolladores'" class="m-3">
+    <small class="text-muted">Al registrarse le enviaremos un email de verificación</small>
     <form
       class="row g-3 needs-validation"
       [formGroup]="form"
@@ -9,32 +10,32 @@
       <div class="col-md-6">
         <label class="form-label">Email</label>
         <input type="email" class="form-control" formControlName="email" />
-        <span class="form-text text-danger" *ngIf="campoInvalido('email')"
-          >Email invalido</span
+        <span class="form-text text-danger" *ngIf="campoInvalido('email').error"
+          >{{campoInvalido('email').msg}}</span
         >
       </div>
 
       <div class="col-md-6">
         <label class="form-label">LinkedIn</label>
         <input type="text" class="form-control" formControlName="linkedIn" />
-        <span class="form-text text-danger" *ngIf="campoInvalido('linkedIn')"
-          >Campo invalido</span
+        <span class="form-text text-danger" *ngIf="campoInvalido('linkedIn').error"
+          >{{campoInvalido('linkedIn').msg}}</span
         >
       </div>
 
       <div class="col-md-6">
         <label class="form-label">Nombres</label>
         <input type="text" class="form-control" formControlName="name" />
-        <span class="form-text text-danger" *ngIf="campoInvalido('name')"
-          >Campo invalido</span
+        <span class="form-text text-danger" *ngIf="campoInvalido('name').error"
+          >{{campoInvalido('name').msg}}</span
         >
       </div>
 
       <div class="col-md-6">
         <label class="form-label">Apellidos</label>
         <input type="text" class="form-control" formControlName="lastName" />
-        <span class="form-text text-danger" *ngIf="campoInvalido('lastName')"
-          >Campo invalido</span
+        <span class="form-text text-danger" *ngIf="campoInvalido('lastName').error"
+          >{{campoInvalido('lastName').msg}}</span
         >
       </div>
 
@@ -45,8 +46,8 @@
           class="form-control"
           formControlName="password"
         />
-        <span class="form-text text-danger" *ngIf="campoInvalido('password')"
-          >Campo invalido</span
+        <span class="form-text text-danger" *ngIf="campoInvalido('password').error"
+          >{{campoInvalido('password').msg}}</span
         >
       </div>
 
@@ -57,16 +58,16 @@
           class="form-control"
           formControlName="password2"
         />
-        <span class="form-text text-danger" *ngIf="campoInvalido('password2')"
-          >Las contraseñas deben ser iguales</span
+        <span class="form-text text-danger" *ngIf="campoInvalido('password2').error"
+          >{{campoInvalido('password2').msg}}</span
         >
       </div>
 
       <div class="col-md-6">
         <label class="form-label">Repositorio</label>
         <input type="text" class="form-control" formControlName="repository" />
-        <span class="form-text text-danger" *ngIf="campoInvalido('repository')"
-          >Campo invalido</span
+        <span class="form-text text-danger" *ngIf="campoInvalido('repository').error"
+          >{{campoInvalido('repository').msg}}</span
         >
       </div>
 
@@ -78,16 +79,16 @@
             {{ country.value }}
           </option>
         </select>
-        <span class="form-text text-danger" *ngIf="campoInvalido('country')"
-          >Campo invalido</span
+        <span class="form-text text-danger" *ngIf="campoInvalido('country').error"
+          >{{campoInvalido('country').msg}}</span
         >
       </div>
 
       <div class="col-md-5">
         <label class="form-label">Fecha Nacimiento</label>
         <input type="date" class="form-control" formControlName="dateBirth" />
-        <span class="form-text text-danger" *ngIf="campoInvalido('dateBirth')"
-          >Campo invalido</span
+        <span class="form-text text-danger" *ngIf="campoInvalido('dateBirth').error"
+          >{{campoInvalido('dateBirth').msg}}</span
         >
       </div>
 
@@ -98,8 +99,8 @@
           class="form-control"
           formControlName="userDescription"
         />
-        <span class="form-text text-danger" *ngIf="campoInvalido('userDescription')"
-          >Campo invalido</span
+        <span class="form-text text-danger" *ngIf="campoInvalido('userDescription').error"
+          >{{campoInvalido('userDescription').msg}}</span
         >
       </div>
 

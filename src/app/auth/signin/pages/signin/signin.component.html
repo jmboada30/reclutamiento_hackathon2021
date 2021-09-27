@@ -9,9 +9,16 @@
       <!-- email -->
       <div class="mb-3">
         <label class="form-label">Email</label>
-        <input type="email" class="form-control" formControlName="email" placeholder="Correo electrónico " />
-        <span class="form-text text-danger" *ngIf="campoInvalido('email')"
-          >Email invalido</span
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          placeholder="Correo electrónico "
+        />
+        <span
+          class="form-text text-danger"
+          *ngIf="campoInvalido('email').error"
+          >{{ campoInvalido("email").msg }}</span
         >
       </div>
 
@@ -24,8 +31,10 @@
           formControlName="password"
           placeholder="contraseña"
         />
-        <span class="form-text text-danger" *ngIf="campoInvalido('password')"
-          >Contraseña invalida</span
+        <span
+          class="form-text text-danger"
+          *ngIf="campoInvalido('password').error"
+          >{{ campoInvalido("password").msg }}</span
         >
       </div>
 

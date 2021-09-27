@@ -23,7 +23,7 @@ export class RegisterDevComponent implements OnInit {
       linkedIn: [, Validators.required],
       name: [, Validators.required],
       lastName: [, Validators.required],
-      password: [, Validators.required],
+      password: [, [Validators.required, Validators.minLength(6)]],
       password2: [, Validators.required],
       country: [],
       dateBirth: [],

@@ -1,5 +1,8 @@
 <div class="full-width d-flex justify-content-center and align-items-center">
   <app-card [title]="'Registro de Empresas'" class="m-3">
+    <small class="text-muted"
+      >Al registrarse le enviaremos un email de verificación</small
+    >
     <form
       class="row g-3"
       [formGroup]="form"
@@ -9,24 +12,30 @@
       <div class="col-md-6">
         <label class="form-label">Email</label>
         <input type="email" class="form-control" formControlName="email" />
-        <span class="form-text text-danger" *ngIf="campoInvalido('email')"
-          >Email invalido</span
+        <span
+          class="form-text text-danger"
+          *ngIf="campoInvalido('email').error"
+          >{{ campoInvalido("email").msg }}</span
         >
       </div>
 
       <div class="col-md-6">
         <label class="form-label">LinkedIn</label>
         <input type="text" class="form-control" formControlName="linkedIn" />
-        <span class="form-text text-danger" *ngIf="campoInvalido('linkedIn')"
-          >Campo invalido</span
+        <span
+          class="form-text text-danger"
+          *ngIf="campoInvalido('linkedIn').error"
+          >{{ campoInvalido("linkedIn").msg }}</span
         >
       </div>
 
       <div class="col-12">
         <label class="form-label">Nombre de Empresa</label>
         <input type="text" class="form-control" formControlName="nameCompany" />
-        <span class="form-text text-danger" *ngIf="campoInvalido('nameCompany')"
-          >Campo invalido</span
+        <span
+          class="form-text text-danger"
+          *ngIf="campoInvalido('nameCompany').error"
+          >{{ campoInvalido("nameCompany").msg }}</span
         >
       </div>
 
@@ -37,8 +46,10 @@
           class="form-control"
           formControlName="password"
         />
-        <span class="form-text text-danger" *ngIf="campoInvalido('password')"
-          >Campo invalido</span
+        <span
+          class="form-text text-danger"
+          *ngIf="campoInvalido('password').error"
+          >{{ campoInvalido("password").msg }}</span
         >
       </div>
 
@@ -49,7 +60,9 @@
           class="form-control"
           formControlName="password2"
         />
-        <span class="form-text text-danger" *ngIf="campoInvalido('password2')"
+        <span
+          class="form-text text-danger"
+          *ngIf="campoInvalido('password2').error"
           >Las contraseñas deben ser iguales</span
         >
       </div>
@@ -57,8 +70,10 @@
       <div class="col-md-6">
         <label class="form-label">Web</label>
         <input type="text" class="form-control" formControlName="webPage" />
-        <span class="form-text text-danger" *ngIf="campoInvalido('webPage')"
-          >Campo invalido</span
+        <span
+          class="form-text text-danger"
+          *ngIf="campoInvalido('webPage').error"
+          >{{ campoInvalido("webPage").msg }}</span
         >
       </div>
 
@@ -70,8 +85,10 @@
             {{ country.value }}
           </option>
         </select>
-        <span class="form-text text-danger" *ngIf="campoInvalido('country')"
-          >Campo invalido</span
+        <span
+          class="form-text text-danger"
+          *ngIf="campoInvalido('country').error"
+          >{{ campoInvalido("country").msg }}</span
         >
       </div>
 
@@ -82,8 +99,10 @@
           class="form-control"
           formControlName="aboutUs"
         ></textarea>
-        <span class="form-text text-danger" *ngIf="campoInvalido('aboutUs')"
-          >Campo invalido</span
+        <span
+          class="form-text text-danger"
+          *ngIf="campoInvalido('aboutUs').error"
+          >{{ campoInvalido("aboutUs").msg }}</span
         >
       </div>
 

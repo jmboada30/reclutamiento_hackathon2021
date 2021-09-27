@@ -22,7 +22,7 @@ export class RegisterCompanyComponent implements OnInit {
       ],
       linkedIn: [, Validators.required],
       nameCompany: [, Validators.required],
-      password: [, Validators.required],
+      password: [, [Validators.required, Validators.minLength(6)]],
       password2: [, Validators.required],
       webPage: [],
       country: [],

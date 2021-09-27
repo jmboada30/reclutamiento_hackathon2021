@@ -29,7 +29,22 @@ export class ValidatorService {
     };
   }
 
-  campoInvalido(form: FormGroup, campo: string) {
-    return form.get(campo)?.invalid && form.get(campo)?.touched;
+  campoInvalido(
+    form: FormGroup,
+    campo: string
+  ): { error: boolean; msg: string } {
+    const errors = form.get(campo).errors;
+    const error = form.get(campo)?.invalid && form.get(campo)?.touched;
+    let msg = '';
+    if (errors?.required) {
+      msg = 'Campo requerido';
+    } else if (errors?.pattern) {
+      msg = 'El campo tiene un formato incorrecto';
+    } else if (errors?.minlength) {
+      msg = `Minimo ${errors?.minlength?.requiredLength}, de ${errors?.minlength?.actualLength}`;
+    } else if (errors?.noSamePasswords) {
+      msg = 'Las contraseñas no coinciden';
+    }
+    return { error, msg };
   }
 }

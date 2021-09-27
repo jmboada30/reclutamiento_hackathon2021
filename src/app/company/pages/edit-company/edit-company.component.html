@@ -10,7 +10,7 @@
           <label class="form-label">Nombre</label>
           <input class="form-control" formControlName="title" autofocus />
           <span class="form-text text-danger" *ngIf="campoInvalido('title')"
-            >Campo invalido</span
+            >{{campoInvalido('title').msg}}</span
           >
         </div>
   
@@ -22,7 +22,7 @@
             </option>
           </select>
           <span class="form-text text-danger" *ngIf="campoInvalido('idCompany')"
-            >Campo invalido</span
+            >{{campoInvalido('idCompany').msg}}</span
           >
         </div>
   
@@ -36,7 +36,7 @@
           <span
             class="form-text text-danger"
             *ngIf="campoInvalido('totalMembers')"
-            >Campo invalido</span
+            >{{campoInvalido('totalMembers').msg}}</span
           >
         </div>
   
@@ -48,7 +48,7 @@
             formControlName="duration"
           />
           <span class="form-text text-danger" *ngIf="campoInvalido('duration')"
-            >Campo invalido</span
+            >{{campoInvalido('duration').msg}}</span
           >
         </div>
   
@@ -62,7 +62,7 @@
             formControlName="description"
           ></textarea>
           <span class="form-text text-danger" *ngIf="campoInvalido('description')"
-            >Campo invalido</span
+            >{{campoInvalido('description').msg}}</span
           >
         </div>
   
