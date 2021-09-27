@@ -1,7 +1,7 @@
 <div class="full-width d-flex justify-content-center and align-items-center">
-  <app-card [title]="'Registro de Empresas'" class="m-3 w-50">
+  <app-card [title]="'Registro de Empresas'" class="m-3">
     <form
-      class="row g-3 needs-validation"
+      class="row g-3"
       [formGroup]="form"
       (ngSubmit)="onSubmit()"
       autocomplete="off"
@@ -22,7 +22,7 @@
         >
       </div>
 
-      <div class="col-md-12">
+      <div class="col-12">
         <label class="form-label">Nombre de Empresa</label>
         <input type="text" class="form-control" formControlName="nameCompany" />
         <span class="form-text text-danger" *ngIf="campoInvalido('nameCompany')"
@@ -77,7 +77,11 @@
 
       <div class="col-12">
         <label class="form-label">Acerca de nosotros</label>
-        <input type="text" class="form-control" formControlName="aboutUs" />
+        <textarea
+          type="text"
+          class="form-control"
+          formControlName="aboutUs"
+        ></textarea>
         <span class="form-text text-danger" *ngIf="campoInvalido('aboutUs')"
           >Campo invalido</span
         >
@@ -85,7 +89,9 @@
 
       <div class="d-grid gap-2 d-md-block">
         <button type="submit" class="btn">Registrar</button>
-        <button type="button" class="btn" routerLink="/auth/signin">Cancelar</button>
+        <button type="button" class="btn" routerLink="/auth/signin">
+          Cancelar
+        </button>
       </div>
     </form>
   </app-card>

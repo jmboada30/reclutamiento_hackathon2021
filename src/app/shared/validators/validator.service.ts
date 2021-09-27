@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormControl, ValidationErrors } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  ValidationErrors,
+  FormGroup,
+} from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -22,5 +27,9 @@ export class ValidatorService {
       formGroup.get(field2).setErrors({ noSamePasswords: true });
       return { noSamePasswords: true };
     };
+  }
+
+  campoInvalido(form: FormGroup, campo: string) {
+    return form.get(campo)?.invalid && form.get(campo)?.touched;
   }
 }

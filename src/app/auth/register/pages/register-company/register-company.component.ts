@@ -39,11 +39,10 @@ export class RegisterCompanyComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userSvc: UserService,
-
     private countrySvc: CountriesService,
     private sharedSvc: SharedService,
     private validator: ValidatorService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.fillCountries();
@@ -69,6 +68,6 @@ export class RegisterCompanyComponent implements OnInit {
   }
 
   campoInvalido(campo: string) {
-    return this.form.get(campo)?.invalid && this.form.get(campo)?.touched;
+    return this.validator.campoInvalido(this.form, campo);
   }
 }

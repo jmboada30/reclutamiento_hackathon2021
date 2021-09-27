@@ -1,78 +1,75 @@
-<div class="container mt-4">
-    <h2 class="text-center">Editar Bootcamp</h2>
-    <div class="row">
-        <div class="col">
-            <div>
-                <form [formGroup]="formEditBootcamp" (ngSubmit)="editBootcamp(formEditBootcamp.value)">
-                    <div class="row mt-3">
-                        <div class="col-12 col-md">
-                            <div class="form-group">
-                                <label for="name">Nombre</label>
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
-                                    id="inputEmail4" 
-                                    placeholder="nombre o titulo del bootcamp" 
-                                    name="title"
-                                    formControlName="title"
-                                    autofocus
-                                    >
-                              </div>
-                        </div>
-                        <div class="col-12 col-md">
-                            <div class="form-group">
-                                <label for="empresa">Empresa</label>
-                                <select 
-                                    class="form-control"
-                                    name="idCompany" 
-                                    formControlName="idCompany" 
-                                    *ngFor="let el of listCompanies | async">
-                                    <option value="{{el.idDoc}}">{{ el.nameCompany }}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="members">Total de miembros</label>
-                                <input type="number" name="totalMembers" formControlName="totalMembers" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="duracion">Duración</label>
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
-                                    placeholder="tiempo estimado"
-                                    name="duration"
-                                    formControlName="duration"
-                                >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="members">Descripción</label>
-                                <textarea 
-                                    type="text" 
-                                    class="form-control" 
-                                    rows="10"
-                                    name="description"
-                                    formControlName="description"
-                                ></textarea>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <div class="d-grid gap-2 mt-3">
-                        <button type="submit" class="btn btn-primary">Actualizar</button>
-                    </div>
-
-                </form>
-            </div>
+<div class="d-flex justify-content-center and align-items-center">
+    <app-card [title]="'Editar Bootcamp'" class="m-3">
+      <form
+        class="row g-3"
+        [formGroup]="formEditBootcamp"
+        (ngSubmit)="editBootcamp()"
+        autocomplete="off"
+      >
+        <div class="col-md-6">
+          <label class="form-label">Nombre</label>
+          <input class="form-control" formControlName="title" autofocus />
+          <span class="form-text text-danger" *ngIf="campoInvalido('title')"
+            >Campo invalido</span
+          >
         </div>
-    </div>
-</div>
+  
+        <div class="col-md-6">
+          <label class="form-label">Empresa</label>
+          <select class="form-select" formControlName="idCompany">
+            <option *ngFor="let el of listCompanies | async" [value]="el.idDoc">
+              {{ el.nameCompany }}
+            </option>
+          </select>
+          <span class="form-text text-danger" *ngIf="campoInvalido('idCompany')"
+            >Campo invalido</span
+          >
+        </div>
+  
+        <div class="col-md-6">
+          <label class="form-label">Total de miembros</label>
+          <input
+            type="number"
+            class="form-control"
+            formControlName="totalMembers"
+          />
+          <span
+            class="form-text text-danger"
+            *ngIf="campoInvalido('totalMembers')"
+            >Campo invalido</span
+          >
+        </div>
+  
+        <div class="col-md-6">
+          <label class="form-label">Duración</label>
+          <input
+            class="form-control"
+            placeholder="Tiempo estimado"
+            formControlName="duration"
+          />
+          <span class="form-text text-danger" *ngIf="campoInvalido('duration')"
+            >Campo invalido</span
+          >
+        </div>
+  
+        <div class="col-12">
+          <label class="form-label">Descripción</label>
+          <textarea
+            type="text"
+            class="form-control"
+            rows="5"
+            name="description"
+            formControlName="description"
+          ></textarea>
+          <span class="form-text text-danger" *ngIf="campoInvalido('description')"
+            >Campo invalido</span
+          >
+        </div>
+  
+        <div class="d-grid gap-2 d-md-block">
+          <button type="submit" class="btn">Crear</button>
+          <button type="button" class="btn" routerLink="/">Cancelar</button>
+        </div>
+      </form>
+    </app-card>
+  </div>

@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
 import { Bootcamp } from './interfaces/bootcamp.interface';
@@ -10,14 +13,18 @@ import { Bootcamp } from './interfaces/bootcamp.interface';
 export class BootcampService {
   private bootcampCollection: AngularFirestoreCollection<Bootcamp>;
   public bootcamp: Observable<Bootcamp[]>;
+
   constructor(private afs: AngularFirestore) {
     this.bootcampCollection = afs.collection<any>('bootcamps');
-      this.getbootcamps();
+    this.getbootcamps();
   }
 
-  getbootcamps(): void{
-    this.bootcamp = this.bootcampCollection.snapshotChanges().pipe( 
-      map(actions => actions.map(a => a.payload.doc.data() as Bootcamp)));
+  getbootcamps(): void {
+    this.bootcamp = this.bootcampCollection
+      .snapshotChanges()
+      .pipe(
+        map((actions) => actions.map((a) => a.payload.doc.data() as Bootcamp))
+      );
   }
 
   async onCreateBootcamp(bootcamp: Bootcamp): Promise<void> {
