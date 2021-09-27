@@ -1,8 +1,11 @@
-<app-card *ngFor="let item of data" class="m-1">
+<app-card *ngFor="let item of data | async" class="m-1">
   <div class="mt-2 mb-2 p-2 card-list-body">
-    <h5 class="card-title">{{ item.tittle }}</h5>
+    <h5 class="card-title">{{ item.title }}</h5>
     <p>
       {{ item.description }}
+    </p>
+    <p>
+      {{ item.duration }}
     </p>
   </div>
 </app-card>

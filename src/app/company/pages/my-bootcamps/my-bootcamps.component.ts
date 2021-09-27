@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { BootcampService } from 'src/app/firebase-services/bootcamp.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-my-bootcamps',
@@ -7,35 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyBootcampsComponent implements OnInit {
 
-  bootcamps:any[] = [
-    {
-      tittle: 'reclutamiento 1',
-      description: 'descripcion 1',
-      integrantes: 2
-    },
-    {
-      tittle: 'reclutamiento 2',
-      description: 'descripcion 2',
-      integrantes: 10
-    },
-    {
-      tittle: 'reclutamiento 3',
-      description: 'descripcion 3',
-      integrantes: 3
-    },
-  ];
-
-  constructor() { }
+  bootcamps = this.bootcampsService.bootcamps;
+  
+  constructor(
+    private bootcampsService:BootcampService,
+    private sharedService:SharedService,
+    private router:Router
+  ) { }
 
   ngOnInit(): void {
   }
 
-  edit = () => {
-    console.log('edit');
+  edit = (idx:string) => {
+    this.router.navigate(['company/show_bootcamp', idx]);
   }
 
-  delete = () => {
-    console.log('delete');
+  delete = (idx:string) => {
+    try{
+      this.bootcampsService.onDeleteBootcamp(idx);
+      this.sharedService.successAlert('Eliminado correctamente');
+    }catch(err){
+      this.sharedService.errorAlert('Error...', err)
+    }
   }
 
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BootcampService } from 'src/app/firebase-services/bootcamp.service';
+import { Bootcamp } from 'src/app/shared/bootcamp.interface';
 
 @Component({
   selector: 'app-bootcamps',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BootcampsComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  bootcamps$ = this.bootcampSVC.bootcamp;
+  constructor(private bootcampSVC: BootcampService) { 
   }
 
+  ngOnInit(): void {
+    // console.log(this.bootcamps$.subscribe( d =>{
+    //   console.log(d);
+    // }));
+    
+
+    // this.bootcamps = this.bootcampSVC.onGetBootcamps
+    // console.log( "holalaalalal" + this.bootcamps);
+    // console.log("hola");
+  }
+  reister(){
+    
+  }
 }
