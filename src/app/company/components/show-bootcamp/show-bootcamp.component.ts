@@ -33,8 +33,8 @@ export class ShowBootcampComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get listReclutamiento(){
-    return this.bootcamps.onGetBootcamps();
-  }
+  // get listReclutamiento():any[]{
+  //   // return this.bootcamps.onGetBootcamps();
+  // }
 
 }
