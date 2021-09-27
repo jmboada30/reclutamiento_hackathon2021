@@ -1,34 +1,45 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { MyBootcampsComponent } from "./components/my-bootcamps/my-bootcamps.component";
-import { ShowBootcampComponent } from "./components/show-bootcamp/show-bootcamp.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { EditCompanyComponent } from './pages/edit-company/edit-company.component';
+import { MyBootcampsComponent } from './pages/my-bootcamps/my-bootcamps.component';
+import { NewBootcampComponent } from './pages/new-bootcamp/new-bootcamp.component';
+import { ShowBootcampComponent } from './pages/show-bootcamp/show-bootcamp.component';
 
 const COMPANY_ROUTES: Routes = [
   {
-    path:'',
-    children:[
+    path: '',
+    redirectTo: 'show_bootcamps',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
+    children: [
       {
-        path:'',
-        component: ShowBootcampComponent
+        path: 'show_bootcamps',
+        component: ShowBootcampComponent,
       },
       {
-        path:'my_bootcamps',
-        component: MyBootcampsComponent
+        path: 'my_bootcamps',
+        component: MyBootcampsComponent,
       },
       {
-        path:'**',
-        redirectTo: ''
+        path: 'new_bootcamp',
+        component: NewBootcampComponent,
       },
-    ]
-  }
-]
+      {
+        path: 'show_bootcamp/:id',
+        component: EditCompanyComponent,
+      },
+      {
+        path: '**',
+        redirectTo: 'show_bootcamps',
+      },
+    ],
+  },
+];
 
 @NgModule({
-  imports:[
-    RouterModule.forChild(COMPANY_ROUTES)
-  ],
-  exports:[
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(COMPANY_ROUTES)],
+  exports: [RouterModule],
 })
 export class CompanyRoutingModule {}

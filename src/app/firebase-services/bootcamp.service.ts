@@ -3,6 +3,8 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+
 import { map } from 'rxjs/operators'
 
 type Requirements = {
@@ -23,22 +25,20 @@ interface Bootcamp {
   providedIn: 'root',
 })
 export class BootcampService {
+
   private bootcampCollection: AngularFirestoreCollection<any>;
+  bootcamps:Observable<Bootcamp[]>;
 
   constructor(private afs: AngularFirestore) {
     this.bootcampCollection = this.afs.collection<any>('bootcamps');
+    this.onGetBootcamps();
   }
 
   onGetBootcamps() {
     try {
-      // const result = this.bootcampCollection.get({ source: 'server' });
-      // return result;
-      const result = this.bootcampCollection.snapshotChanges().pipe(
-        map((data) => {
-          data.map(a=>a.payload.doc.data())
-        })
+      this.bootcamps = this.bootcampCollection.snapshotChanges().pipe(
+        map(actions => actions.map(a => a.payload.doc.data()))
       )
-      return result
     } catch (error) {
       console.error(error);
     }

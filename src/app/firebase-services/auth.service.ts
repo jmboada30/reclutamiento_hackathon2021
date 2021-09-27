@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import { UserService } from './user.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 interface AuthServiceCheckAuth {
@@ -11,28 +11,32 @@ interface AuthServiceCheckAuth {
   providedIn: 'root',
 })
 export class AuthService {
-  private userRef = new UserService(this.afs);
-
-  constructor(private auth: AngularFireAuth, private afs: AngularFirestore) {
+  constructor(
+    private auth: AngularFireAuth,
+    private afs: AngularFirestore,
+    private spinner: NgxSpinnerService
+  ) {
     this.auth = this.auth;
-    this.userRef = this.userRef;
   }
 
   async doCreateUserWithEmailPassword(email: string, password: string) {
     const res = await this.auth.createUserWithEmailAndPassword(email, password);
+    await res.user.sendEmailVerification();
     return res.user;
   }
 
   async doSignInWithEmailAndPassword(email: string, password: string) {
-    return this.auth.signInWithEmailAndPassword(email, password);
+    this.spinner.show();
+    return this.auth
+      .signInWithEmailAndPassword(email, password)
+      .finally(() => this.spinner.hide());
   }
+
   async doSignOut() {
     return this.auth.signOut();
   }
+
   async doCheckAuth({ func }: AuthServiceCheckAuth) {
     return this.auth.onAuthStateChanged(func);
-  }
-  async observeUser(uid: string) {
-    return this.userRef.observeUser(uid);
   }
 }

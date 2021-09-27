@@ -1,0 +1,16 @@
+<div class="container mt-5">
+  <app-card title="Mis Bootcamps">
+    <div class="card mb-2" *ngFor="let bootcamp of bootcamps | async">
+      <div class="card-body d-flex justify-content-between and align-items-center">
+        <div class="description">
+          <h5 class="card-title">{{ bootcamp.title }}</h5>
+          <p>{{ bootcamp.description }}</p>
+        </div>
+        <div class="buttons">
+          <a (click)="edit(bootcamp.idDoc)" class="btn btn-warning">Edit</a>
+          <a (click)="delete(bootcamp.idDoc)" class="btn btn-danger">Delete</a>
+        </div>
+      </div>
+    </div>
+  </app-card>
+</div>
