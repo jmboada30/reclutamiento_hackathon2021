@@ -38,7 +38,8 @@ export class SigninComponent implements OnInit {
         if (resp.user.emailVerified === false) {
           this.router.navigateByUrl('/auth/checkmail');
         } else {
-          this.router.navigateByUrl('');
+          console.log('entro onSubmit');
+          this.router.navigateByUrl('/app');
         }
       },
       (error) => this.sharedSvc.errorAlert('Ups... error!', error.message)

@@ -5,11 +5,6 @@ import { LayoutsComponent } from './layout/layouts.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'company',
-    pathMatch: 'full',
-  },
-  {
-    path: '',
     component: LayoutsComponent,
     children: [
       {
