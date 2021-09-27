@@ -3,6 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators'
 
 type Requirements = {
   title: string;
@@ -30,8 +31,14 @@ export class BootcampService {
 
   onGetBootcamps() {
     try {
-      const result = this.bootcampCollection.get({ source: 'server' });
-      return result;
+      // const result = this.bootcampCollection.get({ source: 'server' });
+      // return result;
+      const result = this.bootcampCollection.snapshotChanges().pipe(
+        map((data) => {
+          data.map(a=>a.payload.doc.data())
+        })
+      )
+      return result
     } catch (error) {
       console.error(error);
     }
