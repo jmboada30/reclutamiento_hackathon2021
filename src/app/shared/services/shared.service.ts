@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { NgxSpinnerService, Spinner } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedService {
-  constructor() {}
+  constructor(private spinner: NgxSpinnerService) {}
 
   private toast = Swal.mixin({
     toast: true,
@@ -25,5 +26,13 @@ export class SharedService {
 
   errorAlert(title: string, text: string) {
     this.toast.fire({ icon: 'error', title, text });
+  }
+
+  showSpinner(name?: string, spinner?: Spinner) {
+    this.spinner.show(name, spinner);
+  }
+
+  hideSpinner(name?: string, debounce?: number) {
+    this.spinner.hide(name, debounce);
   }
 }

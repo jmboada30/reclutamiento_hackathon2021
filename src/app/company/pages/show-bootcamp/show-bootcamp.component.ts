@@ -7,7 +7,7 @@ import { BootcampService } from 'src/app/firebase-services/bootcamp.service';
   styleUrls: ['./show-bootcamp.component.scss'],
 })
 export class ShowBootcampComponent implements OnInit {
-  listReclutamiento = this.bootcampsService.bootcamp;
+  listReclutamiento = this.bootcampsService.bootcamps;
 
   constructor(private bootcampsService: BootcampService) {}
 

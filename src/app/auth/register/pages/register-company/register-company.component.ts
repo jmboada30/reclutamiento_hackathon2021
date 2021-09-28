@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from '../../../../firebase-services/user.service';
 import { SharedService } from '../../../../shared/services/shared.service';
 import { ValidatorService } from '../../../../shared/validators/validator.service';
+import { Router } from '@angular/router';
 import {
   CountriesService,
   CountriesDropdown,
@@ -41,7 +42,8 @@ export class RegisterCompanyComponent implements OnInit {
     private userSvc: UserService,
     private countrySvc: CountriesService,
     private sharedSvc: SharedService,
-    private validator: ValidatorService
+    private validator: ValidatorService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -61,6 +63,7 @@ export class RegisterCompanyComponent implements OnInit {
     try {
       await this.userSvc.doCreateUser(this.form.value);
       this.sharedSvc.successAlert('Empresa Creada!');
+      this.router.navigateByUrl('/auth/signin');
     } catch (error) {
       console.log('error :>> ', error);
       this.sharedSvc.errorAlert('Ocurrio un error!', error.message);

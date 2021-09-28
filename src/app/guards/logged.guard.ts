@@ -23,7 +23,6 @@ export class LoggedGuard implements CanActivate {
   checkUser() {
     return this.authSvc.user.pipe(
       map((user) => {
-        console.log('user :>> ', user);
         if (!user || !user?.emailVerified) {
           this.router.navigateByUrl('auth/signin');
           return false;

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-
-import { NgxSpinnerService } from 'ngx-spinner';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { SharedService } from '../shared/services/shared.service';
 
 interface AuthServiceCheckAuth {
   func: (user: any) => void;
@@ -11,11 +9,7 @@ interface AuthServiceCheckAuth {
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(
-    private auth: AngularFireAuth,
-    private afs: AngularFirestore,
-    private spinner: NgxSpinnerService
-  ) {
+  constructor(private auth: AngularFireAuth, private sharedSvc: SharedService) {
     this.auth = this.auth;
   }
 
@@ -26,10 +20,10 @@ export class AuthService {
   }
 
   async doSignInWithEmailAndPassword(email: string, password: string) {
-    this.spinner.show();
+    this.sharedSvc.showSpinner();
     return this.auth
       .signInWithEmailAndPassword(email, password)
-      .finally(() => this.spinner.hide());
+      .finally(() => this.sharedSvc.hideSpinner());
   }
 
   async doSignOut() {

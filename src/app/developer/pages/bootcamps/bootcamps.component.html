@@ -1,17 +1,16 @@
-<div class="container">
-
-    <div class="row ">
-        <div *ngFor="let item of bootcamps$ | async">
-            <span> Empresa: {{item.empresa}}</span>
-            <div class="col-sm-8 col-md-7 col-lg-12 bg-light p-2 mb-4 text d-flex justify-content-between">
-                <span> Descripcion: {{item.description}}</span>
-                <div class="btnlink">
-                    <button type="button" (click)="register()" class="btn-anotarse">Anotarse</button>
-                </div>
-            </div>
+<div class="container mt-5">
+  <app-card title="Lista de Bootcamps">
+    <ng-container *ngFor="let item of bootcamps$ | async">
+      <div class="card-body d-flex justify-content-between and align-items-center">
+        <div class="description">
+          <h4>{{ item.title }}</h4>
+          <p>{{ "Patrocinado por " + item.company?.nameCompany }}</p>
+          <p>{{ item.description }}</p>
         </div>
-    </div>
-
+        <div class="buttons">
+          <button class="btn" (click)="register()">Anotarse</button>
+        </div>
+      </div>
+    </ng-container>
+  </app-card>
 </div>
-
-

@@ -8,8 +8,9 @@ import {
 import { Router } from '@angular/router';
 import { BootcampService } from 'src/app/firebase-services/bootcamp.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { CompanyService } from '../../services/company.service';
 import { ValidatorService } from '../../../shared/validators/validator.service';
+import { UserService } from '../../../firebase-services/user.service';
+import { Bootcamp } from '../../../firebase-services/interfaces/bootcamp.interface';
 
 @Component({
   selector: 'app-new-bootcamp',
@@ -17,29 +18,31 @@ import { ValidatorService } from '../../../shared/validators/validator.service';
   styleUrls: ['./new-bootcamp.component.scss'],
 })
 export class NewBootcampComponent implements OnInit {
-  listCompanies = this.companyService.companies;
-  formNewBootcamp: FormGroup;
+  company: Bootcamp['company'] = null;
+
+  formNewBootcamp: FormGroup = this.formBuilder.group({
+    title: [, Validators.required],
+    totalMembers: [, Validators.required],
+    duration: [, Validators.required],
+    description: [, Validators.required],
+  });
 
   constructor(
-    private companyService: CompanyService,
     private formBuilder: FormBuilder,
     private bootcampService: BootcampService,
     private sharedService: SharedService,
     private router: Router,
-    private validator: ValidatorService
+    private validator: ValidatorService,
+    private userSvc: UserService
   ) {}
 
   ngOnInit(): void {
-    this.createFormNewBootcamp();
+    this.fillCompany();
   }
 
-  createFormNewBootcamp() {
-    this.formNewBootcamp = this.formBuilder.group({
-      title: ['', Validators.required],
-      idCompany: ['', Validators.required],
-      totalMembers: ['', Validators.required],
-      duration: ['', Validators.required],
-      description: ['', Validators.required],
+  fillCompany() {
+    this.userSvc.getUserObs().subscribe(({ nameCompany, idUser }) => {
+      this.company = { nameCompany, idCompany: idUser };
     });
   }
 
@@ -47,7 +50,10 @@ export class NewBootcampComponent implements OnInit {
     this.formNewBootcamp.markAllAsTouched();
     if (!this.formNewBootcamp.valid) return;
     try {
-      await this.bootcampService.onCreateBootcamp(formValues);
+      await this.bootcampService.onCreateBootcamp({
+        ...formValues,
+        company: this.company,
+      });
       this.sharedService.successAlert('Bootcamp creado correctamente');
       this.formNewBootcamp.reset();
       this.router.navigate(['/company/show_bootcamps']);

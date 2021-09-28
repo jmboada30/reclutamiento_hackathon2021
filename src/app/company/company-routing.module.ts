@@ -27,7 +27,7 @@ const COMPANY_ROUTES: Routes = [
         component: NewBootcampComponent,
       },
       {
-        path: 'show_bootcamp/:id',
+        path: 'my_bootcamps/:id',
         component: EditCompanyComponent,
       },
       {

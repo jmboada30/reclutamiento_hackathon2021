@@ -16,14 +16,7 @@
   
         <div class="col-md-6">
           <label class="form-label">Empresa</label>
-          <select class="form-select" formControlName="idCompany">
-            <option *ngFor="let el of listCompanies | async" [value]="el.idDoc">
-              {{ el.nameCompany }}
-            </option>
-          </select>
-          <span class="form-text text-danger" *ngIf="campoInvalido('idCompany')"
-            >{{campoInvalido('idCompany').msg}}</span
-          >
+          <input class="form-control" [value]="bootcamp?.company?.nameCompany" disabled />
         </div>
   
         <div class="col-md-6">
@@ -68,7 +61,7 @@
   
         <div class="d-grid gap-2 d-md-block">
           <button type="submit" class="btn">Editar</button>
-          <button type="button" class="btn m-md-2" routerLink="/">Cancelar</button>
+          <button type="button" class="btn m-md-2" routerLink="/company/my_bootcamps">Cancelar</button>
         </div>
       </form>
     </app-card>

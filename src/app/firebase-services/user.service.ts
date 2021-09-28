@@ -5,9 +5,9 @@ import {
 } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 import { User } from './interfaces/user.interfaces';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { shareReplay, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import { SharedService } from '../shared/services/shared.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,13 +19,13 @@ export class UserService {
   constructor(
     private afs: AngularFirestore,
     private authSvc: AuthService,
-    private spinner: NgxSpinnerService
+    private sharedSvc: SharedService
   ) {
     this.usersCollection = this.afs.collection<any>('users');
   }
 
   async doCreateUser(user: User) {
-    this.spinner.show();
+    this.sharedSvc.showSpinner();
     const {
       aboutUs,
       nameCompany,
@@ -63,7 +63,7 @@ export class UserService {
       });
     } catch (error) {
     } finally {
-      this.spinner.hide();
+      this.sharedSvc.hideSpinner();
     }
   }
 
