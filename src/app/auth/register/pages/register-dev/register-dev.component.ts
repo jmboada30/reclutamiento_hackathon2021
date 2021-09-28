@@ -67,7 +67,6 @@ export class RegisterDevComponent implements OnInit {
       this.sharedSvc.successAlert('Has sido registrado exitosamente!');
       this.router.navigateByUrl('/auth/signin');
     } catch (error) {
-      console.log('error :>> ', error);
       this.sharedSvc.errorAlert('Ocurrio un error!', error.message);
     }
   }

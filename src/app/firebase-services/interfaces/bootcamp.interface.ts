@@ -1,8 +1,3 @@
-type Requirements = {
-  title: string;
-  description: string;
-};
-
 export interface Bootcamp {
   title: string;
   totalMembers: number;
@@ -11,4 +6,18 @@ export interface Bootcamp {
   company: { nameCompany: string; idCompany: string };
   idDoc?: string;
   requirements: Requirements[];
+  participants: Participant[];
+}
+
+export interface Participant {
+  idUser: string;
+  name: string;
+  lastName: string;
+  email: string;
+  repository: string;
+}
+
+interface Requirements {
+  title: string;
+  description: string;
 }

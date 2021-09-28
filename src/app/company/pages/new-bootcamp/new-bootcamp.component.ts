@@ -53,6 +53,7 @@ export class NewBootcampComponent implements OnInit {
       await this.bootcampService.onCreateBootcamp({
         ...formValues,
         company: this.company,
+        participants: [],
       });
       this.sharedService.successAlert('Bootcamp creado correctamente');
       this.formNewBootcamp.reset();

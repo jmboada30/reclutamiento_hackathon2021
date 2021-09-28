@@ -20,8 +20,8 @@ export class SharedService {
     },
   });
 
-  successAlert(title: string) {
-    this.toast.fire({ icon: 'success', title });
+  successAlert(title: string, text?: string) {
+    this.toast.fire({ icon: 'success', title, text });
   }
 
   errorAlert(title: string, text: string) {

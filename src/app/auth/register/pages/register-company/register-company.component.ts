@@ -65,7 +65,6 @@ export class RegisterCompanyComponent implements OnInit {
       this.sharedSvc.successAlert('Empresa Creada!');
       this.router.navigateByUrl('/auth/signin');
     } catch (error) {
-      console.log('error :>> ', error);
       this.sharedSvc.errorAlert('Ocurrio un error!', error.message);
     }
   }

@@ -5,8 +5,10 @@ import {
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Bootcamp } from './interfaces/bootcamp.interface';
+import { Bootcamp, Participant } from './interfaces/bootcamp.interface';
 import { SharedService } from '../shared/services/shared.service';
+import firestore from 'firebase/app';
+import { User } from './interfaces/user.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +29,15 @@ export class BootcampService {
       .pipe(
         map((actions) => actions.map((a) => a.payload.doc.data() as Bootcamp))
       );
+  }
+
+  getBootcampsSubscribed(user: User) {
+    return this.afs
+      .collection<Bootcamp>('bootcamps', (ref) =>
+        ref.where('participants', 'array-contains', this.buildParticipant(user))
+      )
+      .snapshotChanges()
+      .pipe(map((bootcamps) => bootcamps.map((a) => a.payload.doc.data())));
   }
 
   async onCreateBootcamp(bootcamp: Bootcamp) {
@@ -83,5 +94,49 @@ export class BootcampService {
       )
       .snapshotChanges()
       .pipe(map((resp) => resp[0].payload.doc.data()));
+  }
+
+  addDevToBootcamp(idDoc: string, user: User) {
+    this.sharedSvc.showSpinner();
+
+    this.bootcampCollection
+      .doc(idDoc)
+      .update({
+        participants: firestore.firestore.FieldValue.arrayUnion(
+          this.buildParticipant(user)
+        ),
+      } as any)
+      .then((ok) => this.sharedSvc.successAlert('Exito', 'Bienvenid@'))
+      .catch((err) =>
+        this.sharedSvc.errorAlert('Error', 'No pudiste inscribirte')
+      )
+      .finally(() => this.sharedSvc.hideSpinner());
+  }
+
+  removeDevToBootcamp(idDoc: string, user: User) {
+    this.sharedSvc.showSpinner();
+
+    this.bootcampCollection
+      .doc(idDoc)
+      .update({
+        participants: firestore.firestore.FieldValue.arrayRemove(
+          this.buildParticipant(user)
+        ),
+      } as any)
+      .then((ok) => this.sharedSvc.successAlert('Ok', 'Anulaste tu incripción'))
+      .catch((err) =>
+        this.sharedSvc.errorAlert('Error', 'No se logro anular la suscripción')
+      )
+      .finally(() => this.sharedSvc.hideSpinner());
+  }
+
+  buildParticipant(user: User): Participant {
+    return {
+      email: user.email,
+      idUser: user.idUser,
+      lastName: user.lastName,
+      name: user.name,
+      repository: user.repository,
+    };
   }
 }
